@@ -1,0 +1,8 @@
+INSERT INTO sch_sad.sad_cargo VALUES 
+('jabiromba cheese',456,'nanana'),
+('dominus dominus',148,'hehe'),
+('cheese',111,'oi tudo bem'),
+('449 jaca','#','xis'),
+(NULL,047,'harry'),
+('fkffjkj',113,NULL),
+('yyy',NULL,'oo');
