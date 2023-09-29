@@ -1,4 +1,4 @@
-INSERT INTO sch_sad.sad_cargo VALUES 
+INSERT INTO mocking_table VALUES 
 ('jabiromba cheese',456,'nanana'),
 ('dominus dominus',148,'hehe'),
 ('cheese',111,'oi tudo bem'),
