@@ -90,4 +90,4 @@ tratar_arquivo_csv(arquivo_entrada,arquivo_saida,1)
 arquivo_sql = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/saida.sql"
 
 # gera arquivo SQL INSERT pronto - (arquivo_saida, arquivo_sql, string nome da tabela com ou sem campos entre parenteses)
-converter_csv_para_sql(arquivo_saida, arquivo_sql, "sch_sad.sad_cargo")
+converter_csv_para_sql(arquivo_saida, arquivo_sql, "mocking_table")
