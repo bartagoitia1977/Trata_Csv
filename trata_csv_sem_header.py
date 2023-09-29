@@ -1,11 +1,11 @@
-# Bruno Nascimento - 27-09-2023
+# Bruno Nascimento - 29-09-2023
 # Ferramenta Python para arquivos texto ou csv
 # Funcao tratar_arquivo_csv trata arquivos para serem carregados na carga mensal
 # Funcao converter_csv_para_sql deixa um arquivo para inserts pronto para bulk insert
 
 import csv
 
-def tratar_arquivo_csv(arquivo_entrada, arquivo_saida, campo_num):
+def tratar_arquivo_csv(arquivo_entrada, arquivo_saida, campo_num = None):
     """
     Trata um arquivo .csv retirando espaços '' ou ' ' e substituindo campos vazios por NULL.
 
@@ -21,9 +21,6 @@ def tratar_arquivo_csv(arquivo_entrada, arquivo_saida, campo_num):
         # Cria um leitor de CSV.
         reader = csv.reader(f_entrada, delimiter=";")
 
-        # Pula a linha de cabeçalho.
-        next(reader, None)
-
         # Cria um arquivo de saída em modo de escrita.
         with open(arquivo_saida, "w", newline='') as f_saida:
             # Inicializa o escritor de CSV.
@@ -34,11 +31,11 @@ def tratar_arquivo_csv(arquivo_entrada, arquivo_saida, campo_num):
                 # Substitui campos vazios entre ;; por ,NULL,
                 linha = [campo.strip() if campo.strip() else "NULL" for campo in linha]
 
-                # Transforma campos '00000000' por #.
-                linha = ["#" if campo == "00000000" else campo for campo in linha]
-
                 # Escreve a linha tratada no arquivo de saída com aspas simples envolvendo os valores.
-                writer.writerow([campo if ((campo == 'NULL' or campo == linha[campo_num]) and campo != '#') else "'" + campo + "'" for campo in linha])
+                if campo_num == None:
+                  writer.writerow([campo if campo == 'NULL' else "'" + campo + "'" for campo in linha])
+                else:
+                  writer.writerow([campo if (campo == 'NULL' or campo == linha[campo_num]) else "'" + campo + "'" for campo in linha])
 
 def converter_csv_para_sql(arquivo_csv, arquivo_sql, nome_da_tabela):
   """
@@ -78,16 +75,25 @@ def converter_csv_para_sql(arquivo_csv, arquivo_sql, nome_da_tabela):
 # caminhos DOS devem usar "/"
 
 # Caminho arquivo entrada
-arquivo_entrada = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/teste.csv" 
+arquivo_entrada = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/teste_sem_header.csv" 
 
 # Caminho arquivo saida
-arquivo_saida = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/teste_tratado.csv"
+arquivo_saida = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/teste_sem_header_tratado.csv"
+
+arquivo_saida2 = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/teste_sem_header_tratado2.csv"
+
+# gera arquivo tratado - (arquivo_entrada,arquivo_saida)
+tratar_arquivo_csv(arquivo_entrada,arquivo_saida)
 
 # gera arquivo tratado - (arquivo_entrada,arquivo_saida, numero campo sem aspas de 0 a n)
-tratar_arquivo_csv(arquivo_entrada,arquivo_saida,1)
+tratar_arquivo_csv(arquivo_entrada,arquivo_saida2,1)
 
 # Caminho arquivo SQL
-arquivo_sql = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/saida.sql"
+arquivo_sql = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/saida2.sql"
+
+arquivo_sql2 = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/saida3.sql"
 
 # gera arquivo SQL INSERT pronto - (arquivo_saida, arquivo_sql, string nome da tabela com ou sem campos entre parenteses)
-converter_csv_para_sql(arquivo_saida, arquivo_sql, "sch_sad.sad_cargo")
+converter_csv_para_sql(arquivo_saida, arquivo_sql, "mocking_table")
+
+converter_csv_para_sql(arquivo_saida2, arquivo_sql2, "cheese_table")

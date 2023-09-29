@@ -5,17 +5,7 @@
 
 import csv
 
-def tratar_arquivo_csv(arquivo_entrada, arquivo_saida, campo_num):
-    """
-    Trata um arquivo .csv retirando espaços '' ou ' ' e substituindo campos vazios por NULL.
-
-    Args:
-        arquivo_entrada: O caminho para o arquivo de entrada.
-        arquivo_saida: O caminho para o arquivo de saída.
-
-    Returns:
-        Nenhum.
-    """
+def tratar_arquivo_csv(arquivo_entrada, arquivo_saida):
     # Abre o arquivo de entrada em modo de leitura.
     with open(arquivo_entrada, "r", encoding="utf8", errors="ignore") as f_entrada:
         # Cria um leitor de CSV.
@@ -37,8 +27,8 @@ def tratar_arquivo_csv(arquivo_entrada, arquivo_saida, campo_num):
                 # Transforma campos '00000000' por #.
                 linha = ["#" if campo == "00000000" else campo for campo in linha]
 
-                # Escreve a linha tratada no arquivo de saída com aspas simples envolvendo os valores.
-                writer.writerow([campo if ((campo == 'NULL' or campo == linha[campo_num]) and campo != '#') else "'" + campo + "'" for campo in linha])
+                # Escreve a linha tratada no arquivo de saída.
+                writer.writerow([campo for campo in linha])
 
 def converter_csv_para_sql(arquivo_csv, arquivo_sql, nome_da_tabela):
   """
@@ -90,4 +80,4 @@ tratar_arquivo_csv(arquivo_entrada,arquivo_saida,1)
 arquivo_sql = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/saida.sql"
 
 # gera arquivo SQL INSERT pronto - (arquivo_saida, arquivo_sql, string nome da tabela com ou sem campos entre parenteses)
-converter_csv_para_sql(arquivo_saida, arquivo_sql, "sch_sad.sad_cargo")
+converter_csv_para_sql(arquivo_saida, arquivo_sql, "mocking_table")
