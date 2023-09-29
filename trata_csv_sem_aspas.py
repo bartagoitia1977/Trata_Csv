@@ -68,16 +68,16 @@ def converter_csv_para_sql(arquivo_csv, arquivo_sql, nome_da_tabela):
 # caminhos DOS devem usar "/"
 
 # Caminho arquivo entrada
-arquivo_entrada = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/teste.csv" 
+arquivo_entrada = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/teste_sem_aspas/teste.csv" 
 
 # Caminho arquivo saida
-arquivo_saida = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/teste_tratado.csv"
+arquivo_saida = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/teste_sem_aspas/teste_tratado.csv"
 
-# gera arquivo tratado - (arquivo_entrada,arquivo_saida, numero campo sem aspas de 0 a n)
-tratar_arquivo_csv(arquivo_entrada,arquivo_saida,1)
+# gera arquivo tratado - (arquivo_entrada,arquivo_saidaS)
+tratar_arquivo_csv(arquivo_entrada,arquivo_saida)
 
 # Caminho arquivo SQL
-arquivo_sql = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/saida.sql"
+arquivo_sql = "C:/Users/bruno.artagoitia/Documents/CARGAS/Tratador de csv/teste_sem_aspas/saida.sql"
 
 # gera arquivo SQL INSERT pronto - (arquivo_saida, arquivo_sql, string nome da tabela com ou sem campos entre parenteses)
 converter_csv_para_sql(arquivo_saida, arquivo_sql, "mocking_table")
